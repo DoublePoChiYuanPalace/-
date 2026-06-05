@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>二重埔慈元宮</title>
+    <title>二重埔慈元宮 媽祖會</title>
     <style>
         /* 全域樣式與平滑滾動 */
         html {
             scroll-behavior: smooth;
         }
-        body {
-            font-family: 'Arial', 'Microsoft JhengHei', sans-serif;
-            background-color: #fffde7; /* 溫暖的淺黃色背景 */
-            color: #333;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'PingFang TC', 'Noto Sans TC', 'Segoe UI', 'Arial', 'Microsoft JhengHei', sans-serif;
+        }
+        body {
+            line-height: 1.8;
+            background-color: #fffde7; /* 溫暖的淺黃色背景 */
+            color: #222222;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
         /* 固定在頂部的導覽列 */
@@ -26,7 +34,6 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            box-sizing: border-box;
         }
 
         .nav-container {
@@ -38,10 +45,13 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #e53935; /* 經典紅色 */
-            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
         }
 
         nav a {
@@ -56,122 +66,336 @@
             color: #e53935;
         }
 
-        /* 區塊容器 */
+        /* 新增：最上方的灰色大型大圖區塊 (Hero Section) */
+        .hero-section {
+            background-color: #8b8a7e; /* 復古灰色背景 */
+            color: #ffffff;
+            text-align: center;
+            padding: 100px 20px;
+            margin-top: 90px; /* 留出頂部固定導覽列的高度 */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        .hero-title {
+            font-size: 42px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .hero-subtitle {
+            font-size: 20px;
+            letter-spacing: 2px;
+            opacity: 0.95;
+        }
+
+        /* 網頁主容器與區塊通用樣式 */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 120px 20px 40px 20px; /* 留 padding 防止內容被置頂導覽列遮擋 */
+            padding: 40px 20px; /* 大圖已留空，這裡縮小上方間距 */
         }
 
         section {
             background-color: #ffffff;
             border-radius: 15px;
-            padding: 30px;
+            padding: 50px 40px;
             margin-bottom: 60px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        h1 {
-            color: #e53935;
-            border-bottom: 3px solid #ffeb3b;
-            padding-bottom: 10px;
-            margin-top: 0;
+        /* 標題樣式 */
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 35px;
+            position: relative;
+            color: #E60000; 
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #E60000;
+            margin: 12px auto 0;
         }
 
-        h2 {
-            color: #0288d1;
-            margin-top: 25px;
+        /* 關於本會區塊（Logo 圖片 100% 貼齊白框邊緣） */
+        .about-section {
+            padding: 0; /* 讓圖片能頂到最邊緣 */
+            overflow: hidden;
+        }
+        .about-text-padding {
+            padding: 40px;
+            font-size: 18px;
+        }
+        .about-logo-box {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .about-logo-box img {
+            width: 100%; 
+            height: auto; 
+            display: block;
+        }
+        .about-text-padding p {
+            margin-bottom: 15px;
+            text-align: justify;
         }
 
-        blockquote {
-            background: #fff9c4;
-            border-left: 5px solid #e53935;
-            margin: 1.5em 0;
-            padding: 10px 15px;
-            border-radius: 0 5px 5px 0;
-        }
-
-        /* 卡片式排版（角色與劇場版使用） */
-        .grid-container {
+        /* 組織幹部 */
+        .member-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .member-card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 30px 20px;
+            border: 1px solid #eeeeee;
+            border-top: 4px solid #ffcc00;
+        }
+        .member-name {
+            font-size: 26px;
+            margin-bottom: 5px;
+            color: #222222;
+            font-weight: bold;
+        }
+        .member-role {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 15px;
+            background-color: #E60000; 
+            display: inline-block;
+            padding: 3px 18px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+        .member-desc {
+            font-size: 16px;
+            color: #555555;
+        }
+
+        /* 會員招募區塊 */
+        .join-container {
+            background: #ffffff;
+            border: 2px dashed #E60000;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .join-badge {
+            display: block;
+            width: fit-content;
+            background-color: #ffcc00;
+            color: #000000;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 5px 20px;
+            margin: 0 auto 30px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 2px 2px 0px #e60000;
+        }
+        .join-list {
+            list-style: none;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .join-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .join-list li::before {
+            content: "●";
+            color: #E60000;
+            position: absolute;
+            left: 5px;
+            font-size: 16px;
+        }
+        .join-subtext {
+            color: #666666;
+            font-size: 16px;
+            display: block;
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+        .join-target {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 4px;
+            border-left: 4px solid #ffcc00;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .join-target h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #E60000;
+        }
+        .join-call {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #E60000;
             margin-top: 20px;
         }
 
-        .card {
-            border: 2px solid #ffeb3b;
-            border-radius: 10px;
-            padding: 20px;
-            background-color: #fff9c4;
-        }
-
-        .card h3 {
-            color: #e53935;
-            margin-top: 0;
-        }
-
-        .card-blue {
-            border: 2px solid #0288d1;
-            background-color: #e1f5fe;
-        }
-
-        .card-blue h3 {
-            color: #0288d1;
-        }
-
-        .rating {
-            color: #f57c00;
-            font-weight: bold;
-        }
-
-        /* 聯絡表單樣式 */
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, textarea {
+        /* 餐敘聯誼照片區塊 */
+        .single-album-container {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #0288d1;
-            border-radius: 5px;
-            box-sizing: border-box;
         }
-        button {
-            background-color: #e53935;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
+        .dinner-item-single {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: 1px solid #ddd;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
+            position: relative;
+        }
+        .dinner-img-box-single {
             width: 100%;
-            transition: background 0.3s;
+            height: 400px; 
+            overflow: hidden;
+            background-color: #e0e0e0;
+            position: relative;
         }
-        button:hover {
-            background-color: #b71c1c;
+        .dinner-img-box-single img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
         }
+        .album-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(230, 0, 0, 0.85);
+            color: white;
+            padding: 5px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .dinner-item-single:hover .dinner-img-box-single img {
+            transform: scale(1.03);
+        }
+        .dinner-desc-single {
+            padding: 18px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #222222;
+            background-color: #ffffff;
+            border-top: 3px solid #ffcc00;
+        }
+        .album-hint {
+            display: block;
+            font-size: 15px;
+            color: #666666;
+            font-weight: normal;
+            margin-top: 4px;
+        }
+
+        /* 燈箱彈出視窗樣式 */
+        .lightbox-modal {
+            display: none; 
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); 
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 4px solid #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.6);
+            padding: 5px 20px;
+            border-radius: 20px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .lightbox-close:hover { color: #ffcc00; }
+        .lightbox-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            padding: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .lightbox-btn:hover { color: #ffcc00; }
+        .btn-prev { left: 20px; }
+        .btn-next { right: 20px; }
 
         /* 頁尾 */
         footer {
             text-align: center;
             padding: 25px;
-            background-color: #0288d1;
+            background-color: #0288d1; /* 動感超人藍 */
             color: white;
+            margin-top: 40px;
+        }
+
+        /* 手機板調整 */
+        @media (max-width: 768px) {
+            .hero-section { padding: 60px 20px; margin-top: 110px; }
+            .hero-title { font-size: 28px; }
+            .hero-subtitle { font-size: 15px; }
+            section { padding: 30px 20px; }
+            .about-text-padding { padding: 20px; }
+            .dinner-img-box-single { height: 240px; }
+            .lightbox-btn { font-size: 40px; padding: 10px; }
+            .nav-container { flex-direction: column; gap: 10px; }
+            nav a { margin: 0 7px; font-size: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 共同導覽列（點擊後會平滑滾動到對應區塊） -->
     <header>
         <div class="nav-container">
-            <a href="#home" class="logo"><img src="imageshw/logo.png" width=100 height=100</a>
+            <a href="index.html" class="logo">
+                <img src="imageshw/logo.png" alt="慈元宮Logo">
+            </a>
             <nav>
                 <a href="index.html">首頁</a>
                 <a href="act.html">活動</a>
@@ -181,5 +405,141 @@
                 <a href="tmf.html">媽祖會</a>
                 <a href="game.html">小遊戲</a>
                 <a href="https://www.facebook.com/DoublePoChiYuanPalace?locale=zh_TW" target="_blank">FB官網</a>
+            </nav>
         </div>
     </header>
+
+    <div class="hero-section">
+        <h1 class="hero-title">二重埔慈元宮 媽祖會</h1>
+        <p class="hero-subtitle">天上聖母 庇佑黎民 ． 同心護持 永續傳承</p>
+    </div>
+
+    <div class="container">
+
+        <section class="about-section">
+            <div class="about-logo-box">
+                <img src="imageshw/tmf1.jpg" alt="二重埔慈元宮 媽祖會">
+            </div>
+            <div class="about-text-padding">
+                <h2 class="section-title">關於本會</h2>
+                <p>歡迎來到二重埔慈元宮媽祖會。慈元宮長期以來為在地信眾的信仰依歸，而媽祖會由一群熱心服務、虔誠信仰天上聖母的信徒所組成。</p>
+                <p>本會以「弘揚媽祖慈悲濟世之精神」為宗旨，積極參與並協助宮廟的各項重大慶典、繞境祈福活動，並致力於在地慈善公益與傳統文化的推廣，凝聚地方情誼，讓聖母的慈光普照每一個角落。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">組織幹部</h2>
+            <div class="member-grid">
+                <div class="member-card">
+                    <h3 class="member-name">李建明</h3>
+                    <span class="member-role">宮主</span>
+                    <p class="member-desc">護持慈元宮香火，帶領宮廟全體執事與信眾一體同心。</p>
+                </div>
+                <div class="member-card">
+                    <h3 class="member-name">周玉嬌</h3>
+                    <span class="member-role">會長</span>
+                    <p class="member-desc">帶領全體會友齊心齊力為聖母服務，統籌媽祖會各項事務與發展方針。</p>
+                </div>
+                <div class="member-card">
+                    <h3 class="member-name">張智能</h3>
+                    <span class="member-role">總幹事</span>
+                    <p class="member-desc">負責媽祖會之活動企劃、會務聯絡及各項行政事務執行。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">會員招募</h2>
+            <div class="join-container">
+                <span class="join-badge">會員招募中</span>
+                <ul class="join-list">
+                    <li><strong>首次入會：費用 1,000 元整</strong><span class="join-subtext">【 享有 POLO衫 (短袖) 2件，外套 1件 】</span></li>
+                    <li><strong>每年年費：費用 1,500 元整</strong><span class="join-subtext">【 含聚餐乙次 】</span></li>
+                    <li><strong>布施經費由媽祖會經費支出</strong></li>
+                    <li><strong>參加制改、進香、普渡費用另收</strong></li>
+                </ul>
+                <div class="join-target">
+                    <h4>【 招募對象 】</h4>
+                    <p>● 須年滿 18 歲以上善男信女</p>
+                    <p>● 未滿 18 歲者申請入會者，請附家長文件</p>
+                </div>
+                <p class="join-call">歡迎十方善信大德 踴躍報名參加！</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">餐敘聯誼紀錄</h2>
+            <div class="single-album-container">
+                <div class="dinner-item-single" onclick="openLightbox(0)">
+                    <div class="dinner-img-box-single">
+                        <span class="album-badge">📷 點擊看全集</span>
+                        <img src="dinner1.jpg" alt="定期會員大會 餐敘留影">
+                    </div>
+                    <div class="dinner-desc-single">
+                        媽祖會餐敘相簿 
+                        <span class="album-hint">（點擊展開看所有聯誼照片）</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="myLightbox" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-btn btn-prev" onclick="changeSlide(-1)">&#10094;</button>
+        <img class="lightbox-content" id="lightboxImg">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+        <button class="lightbox-btn btn-next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 二重埔慈元宮媽祖會 版權所有．福生無量</p>
+    </footer>
+
+    <script>
+        let currentImgIndex = 0;
+
+        // 吃飯照片清單
+        const albumData = [
+            { src: "dinner1.jpg", text: "定期會員大會 餐敘留影" },
+            { src: "dinner2.jpg", text: "媽祖聖誕千秋 平安宴席" },
+            { src: "dinner3.jpg", text: "進香圓滿回鑾 犒軍餐敘" },
+            { src: "dinner4.jpg", text: "餐敘聯誼精彩點滴 四" },
+            { src: "dinner5.jpg", text: "餐敘聯誼精彩點滴 五" },
+            { src: "dinner6.jpg", text: "餐敘聯誼精彩點滴 六" }
+        ];
+
+        const lightbox = document.getElementById('myLightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCapt = document.getElementById('lightboxCaption');
+
+        function openLightbox(index) {
+            currentImgIndex = index;
+            lightbox.style.display = "flex";
+            updateLightbox();
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
+
+        function changeSlide(direction) {
+            currentImgIndex += direction;
+            if (currentImgIndex >= albumData.length) { currentImgIndex = 0; }
+            if (currentImgIndex < 0) { currentImgIndex = albumData.length - 1; }
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            lightboxImg.src = albumData[currentImgIndex].src;
+            lightboxCapt.textContent = albumData[currentImgIndex].text;
+        }
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) { closeLightbox(); }
+        });
+    </script>
+
+</body>
+</html>
