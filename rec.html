@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二重埔慈元宮 - 宮廟歷史紀錄</title>
     <style>
-        /* 全域樣式與平滑滾動 */
+        /* =========================================
+           1. 原有的基礎樣式（保持不變）
+           ========================================= */
         html {
             scroll-behavior: smooth;
         }
@@ -17,10 +19,10 @@
             padding: 0;
         }
 
-        /* 固定在頂部的導覽列（恢復原本大氣的間距） */
+        /* 固定在頂部的導覽列 */
         header {
             background-color: #ffeb3b; /* 亮黃色 */
-            padding: 15px 20px;       /* 恢復原本的上下內距 */
+            padding: 15px 20px;       
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: fixed;
             top: 0;
@@ -35,6 +37,7 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            flex-wrap: wrap; /* 支援手機端自動換行 */
         }
 
         .logo {
@@ -45,17 +48,25 @@
         
         .logo img {
             display: block;
-            /* 恢復原本設定：100px 大尺寸 */
             width: 100px;
             height: 100px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         nav a {
             color: #0288d1; /* 動感超人藍 */
             text-decoration: none;
             margin-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             font-weight: bold;
             transition: color 0.3s;
+            white-space: nowrap; /* 防止中文字斷行 */
         }
 
         nav a:hover {
@@ -66,8 +77,7 @@
         .container {
             max-width: 650px;
             margin: 0 auto;
-            /* 關鍵修正：配合 100px 的 Logo，將頂部間距加大至 180px，第一個紀錄絕對不會被擋到 */
-            padding: 180px 15px 40px 15px; 
+            padding: 180px 15px 40px 15px; /* 配合 Logo 頂部間距 */
             box-sizing: border-box;
         }
 
@@ -79,7 +89,7 @@
             margin-bottom: 35px;
             padding: 20px;
             box-sizing: border-box;
-            border: 1px solid #ffeb3b; /* 淡淡的廟宇黃邊框，融合整體風格 */
+            border: 1px solid #ffeb3b;
         }
 
         /* 標題與時間區塊 */
@@ -111,21 +121,6 @@
             color: #444444;
         }
 
-        /* 圖片區塊 */
-        .record-image-container {
-            width: 100%;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .record-image {
-            width: 100%;
-            max-height: 450px;
-            display: block;
-            object-fit: cover; /* 讓圖片自動適應大小不變形 */
-        }
-
         /* 頁尾 */
         footer {
             text-align: center;
@@ -135,6 +130,108 @@
             font-weight: bold;
             margin-top: 40px;
         }
+
+        /* =========================================
+           2. 優化後的圖片格線與 Lightbox CSS (新增/修改)
+           ========================================= */
+        
+        /* 圖片外層區塊 */
+        .record-image-container {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            display: grid;
+            gap: 8px; /* 圖片之間的間距 */
+        }
+
+        /* [關鍵] 單張圖片時的縮圖樣式 */
+        .single-image-container {
+            grid-template-columns: 1fr;
+        }
+        
+        /* [關鍵] 多張圖片時的縮圖樣式 (變成 3 欄整齊格線) */
+        .multi-image-container {
+            grid-template-columns: repeat(3, 1fr); /* 電腦端 3 欄 */
+        }
+
+        /* 縮圖本身的樣式 */
+        .record-thumbnail {
+            width: 100%;
+            height: 150px; /* [關鍵] 統一縮圖高度，防止照片太長 */
+            object-fit: cover; /* 裁剪圖片以填滿區域，不變形 */
+            display: block;
+            border-radius: 4px;
+            cursor: pointer; /*滑鼠移上去變成手指，提示可點擊 */
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        
+        .record-thumbnail:hover {
+            opacity: 0.8; /* 滑鼠移上去變淡 */
+            transform: scale(1.02); /* 微幅放大 */
+        }
+
+        /* 如果只有一張圖，可以讓它高一點 */
+        .single-image-container .record-thumbnail {
+            height: 250px; 
+        }
+
+        /* =========================================
+           3. Lightbox 彈出視窗 CSS (完全新增)
+           ========================================= */
+        .lightbox-overlay {
+            display: none; /* 預設是隱藏的 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* FB 風格的黑色半透明背景 */
+            z-index: 2000; /* 確保在最上層 */
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out; /* 提示點擊可關閉 */
+        }
+
+        /* 彈出視窗內的大圖 */
+        .lightbox-image {
+            max-width: 90%; /* 防止圖片超出螢幕寬度 */
+            max-height: 90%; /* 防止圖片超出螢幕高度 */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            cursor: default; /* 在圖片上恢復預設滑鼠 */
+        }
+
+        /* 關閉按鈕 */
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* 手機板響應式微調 */
+        @media (max-width: 768px) {
+            .nav-container { justify-content: center; flex-direction: column; }
+            nav { justify-content: center; margin-top: 10px; }
+            nav a { margin: 5px 10px; }
+            .container { padding-top: 240px; }
+            
+            /* 手機上多圖變成 2 欄，避免縮圖太小 */
+            .multi-image-container {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .record-thumbnail {
+                height: 120px; /* 手機縮圖矮一點 */
+            }
+            .lightbox-close {
+                top: 10px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -142,7 +239,7 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="imageshw/logo.png" width="100" height="100" alt="慈元宮Logo">
+                <img src="imageshw/logo.png" alt="慈元宮Logo">
             </a>
             <nav>
                 <a href="index.html">首頁</a>
@@ -159,6 +256,7 @@
 
     <div class="container">
 
+        <!-- 紀錄卡片 1：單張圖 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">歡迎 新北拱心宮 (拱天宮 白沙屯媽祖分靈)</h2>
@@ -166,29 +264,43 @@
             </div>
             <div class="record-content">
                 二重埔慈元宮 全體歡迎您
-願 天上聖母 媽祖婆 庇佑大家2025年平安健康
+                願 天上聖母 媽祖婆 庇佑大家2025年平安健康
             </div>
-            <div class="record-image-container">
-                <img src="images/visit_01.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+            <!-- [修改] 加上 single-image-container，裡面的圖片加上 class="record-thumbnail" -->
+            <div class="record-image-container single-image-container">
+                <img src="imageshw/BMP1.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/BMP2.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
             </div>
         </div>
 
+        <!-- 紀錄卡片 2：多張圖 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">歡迎 白沙屯媽祖台中清水分靈</h2>
                 <p class="record-time">日期：2025年10月18日</p>
             </div>
             <div class="record-content">
-白沙屯媽祖台中清水分靈
-行善宮 行善媽祖 蒞臨 二重埔慈元宮 駐駕
-會香神尊 :
-東獄大帝  吳府千歲
-行善媽祖  降龍大師父
-李府千歲  玄天上帝
-城隍爺      開台聖國聖爺
-歡迎蒞臨 二重埔慈元宮            </div>
-            <div class="record-image-container">
-                <img src="images/event_01.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                白沙屯媽祖台中清水分靈
+                行善宮 行善媽祖 蒞臨 二重埔慈元宮 駐駕
+
+                會香神尊 :
+                東獄大帝  吳府千歲
+                行善媽祖  降龍大師父
+                李府千歲  玄天上帝
+                城隍爺      開台聖國聖爺
+
+                歡迎蒞臨 二重埔慈元宮
+            </div>
+            <!-- [修改] 加上 multi-image-container，所有圖片加上 class="record-thumbnail" -->
+            <div class="record-image-container multi-image-container">
+                <img src="imageshw/TMP1.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP2.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP3.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP4.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP5.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP6.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP7.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
+                <img src="imageshw/TMP8.jpg" alt="歷史照片" class="record-image" onerror="this.src='https://placehold.co/600x400?text=請替換成歷史照片'">
             </div>
         </div>
 
@@ -197,6 +309,58 @@
     <footer>
         © 二重埔慈元宮 版權所有
     </footer>
+
+    <!-- =========================================
+         4. Lightbox 彈出視窗 HTML 結構 (完全新增)
+         ========================================= -->
+    <!-- 這個區塊預設是隱藏的，只有點擊縮圖時才會被 JS 呼叫出來 -->
+    <div id="lightboxOverlay" class="lightbox-overlay">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightboxImage" src="" alt="放大照片" class="lightbox-image">
+    </div>
+
+    <!-- =========================================
+         5. Lightbox 互動 JavaScript (完全新增)
+         ========================================= -->
+    <script>
+        // 取得必要的 HTML 元素
+        const thumbnails = document.querySelectorAll('.record-thumbnail');
+        const overlay = document.getElementById('lightboxOverlay');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const closeBtn = document.querySelector('.lightbox-close');
+
+        // [功能1] 開啟 Lightbox
+        // 幫頁面上所有縮圖加上點擊事件
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                // 1. 把縮圖的 src (路徑) 給大圖
+                lightboxImg.src = this.src;
+                // 2. 顯示黑色彈出視窗 (利用 flex 置中)
+                overlay.style.display = 'flex';
+                // 3. 為了防止圖片太長導致外層出現滾動條，開啟時把 body 鎖住
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // [功能2] 關閉 Lightbox
+        // 定義一個關閉的函式
+        function closeLightbox() {
+            overlay.style.display = 'none'; // 隱藏視窗
+            lightboxImg.src = ''; // 清空圖片路徑，節省資源
+            document.body.style.overflow = 'auto'; // 恢復網頁滾動
+        }
+
+        // 點擊關閉按鈕時關閉
+        closeBtn.addEventListener('click', closeLightbox);
+
+        // 點擊黑色背景處 (也就是 overlay 本身) 時也關閉，像 FB 一樣
+        overlay.addEventListener('click', function(e) {
+            // 確保點擊的是黑色背景 (overlay) 而不是圖片本身
+            if (e.target === overlay) {
+                closeLightbox();
+            }
+        });
+    </script>
 
 </body>
 </html>
