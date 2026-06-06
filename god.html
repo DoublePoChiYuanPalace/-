@@ -3,58 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>神明介紹 - 二重埔慈元宮</title>
+    <title>二重埔慈元宮</title>
     <style>
         /* ======================================================== */
-        /* 🎨 全域變數與基本設定 */
+        /* 🎨 全域樣式與平滑滾動（完全對齊範例母本） */
         /* ======================================================== */
-        :root {
-            --primary-red: #e53935;    /* 慈元經典紅 */
-            --primary-yellow: #ffeb3b; /* 廟宇金黃 */
-            --sky-blue: #0288d1;       /* 晴空藍 */
-            --bg-light: #fdfaf4;       /* 暖色調宮廟風背景 */
-            --card-bg: #ffffff;
-            --text-main: #2b2b2b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-        }
-
         html {
             scroll-behavior: smooth;
         }
-
         body {
-            /* 🏮 全域滿版底圖背景設定修正 🏮 */
+            font-family: 'Arial', 'Microsoft JhengHei', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+
+            /* 🏮 保留神明介紹頁專屬的滿版背景設定 */
             background-image: url('imageshw/end.jpg'); 
-            background-size: cover;              /* ⚡ 關鍵修正：強制讓底圖等比例縮放，完美填滿整個螢幕 */
-            background-position: center center;  /* ⚡ 關鍵修正：讓背景圖永遠居中對齊 */
-            background-repeat: no-repeat;        /* ⚡ 關鍵修正：關閉重複平鋪，避免大螢幕破圖 */
-            background-attachment: fixed;        /* 背景固定，滾動時文字移動，營造高級感 */
-            background-color: var(--bg-light);   /* 圖片載入前的備用暖底色 */
-            color: var(--text-main);
-            line-height: 1.6;
-            
-            /* 核心關鍵：調高內邊距至 140px，確保最上排的神明卡片完全不被黃色導覽列遮擋 */
-            padding-top: 140px; 
+            background-size: cover;              
+            background-position: center center;  
+            background-repeat: no-repeat;        
+            background-attachment: fixed;        
+            background-color: #fffde7; /* 預設背景色對齊範例 */
+
+            /* ⚡ 頂部完美推開 180px，讓第一個區塊（神明卡片）完全不被固定導覽列擋住 */
+            padding-top: 180px; 
         }
 
         /* ======================================================== */
-        /* 📌 固定頂部導覽列 */
+        /* 📌 固定在頂部的導覽列（完全複製範例母本，一字不差） */
         /* ======================================================== */
         header {
-            background-color: var(--primary-yellow);
+            background-color: #ffeb3b; /* 小新亮黃色 */
             padding: 15px 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         .nav-container {
@@ -63,59 +49,53 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: var(--primary-red);
+            color: #e53935; /* 經典紅色 */
             text-decoration: none;
             display: flex;
             align-items: center;
         }
 
-        nav {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
         nav a {
-            color: var(--sky-blue);
+            color: #0288d1; /* 動感超人藍 */
             text-decoration: none;
             margin-left: 20px;
             font-weight: bold;
             transition: color 0.3s;
-            white-space: nowrap;
         }
 
         nav a:hover {
-            color: var(--primary-red);
+            color: #e53935;
         }
 
         /* ======================================================== */
-        /* 📦 神明網格佈局區 */
+        /* 📦 神明區塊主容器佈局 */
         /* ======================================================== */
         .main-container {
             max-width: 1200px;
             margin: 0 auto 5rem auto;
-            padding: 0 1.5rem;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
         }
 
+        /* 神明網格 */
         .people-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2.5rem;
         }
 
-        /* 人物/神明卡片 */
+        /* 人物/神明卡片樣式 */
         .person-card {
-            background-color: var(--card-bg);
+            background-color: #ffffff;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06);
             border: 1px solid #eee1cd;
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s;
             display: flex;
@@ -126,7 +106,7 @@
         .person-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(183, 28, 28, 0.15);
-            border-color: var(--primary-red);
+            border-color: #e53935;
         }
 
         .photo-box {
@@ -171,7 +151,7 @@
         .tag { 
             font-size: 0.8rem; 
             background-color: #ffebee; 
-            color: var(--primary-red); 
+            color: #e53935; 
             padding: 0.2rem 0.6rem; 
             border-radius: 4px; 
             font-weight: bold; 
@@ -181,8 +161,8 @@
         /* 卡片按鈕 */
         .view-btn {
             background-color: #fff;
-            color: var(--primary-red);
-            border: 2px solid var(--primary-red);
+            color: #e53935;
+            border: 2px solid #e53935;
             padding: 0.6rem 1rem;
             border-radius: 8px;
             font-weight: bold;
@@ -193,12 +173,12 @@
         }
 
         .person-card:hover .view-btn {
-            background-color: var(--primary-red);
+            background-color: #e53935;
             color: #fff;
         }
 
         /* ======================================================== */
-        /* 🛠️ 全螢幕滿版展示視窗樣式 (剧院模式) */
+        /* 🛠️ 全螢幕滿版展示視窗樣式 */
         /* ======================================================== */
         .modal-overlay {
             position: fixed;
@@ -219,7 +199,6 @@
             pointer-events: auto;
         }
 
-        /* 左側滿版大圖 */
         .modal-left-photo {
             flex: 1;
             flex-basis: 50%;
@@ -230,11 +209,10 @@
         .modal-left-photo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* 確保神明金身神韻不被切到 */
+            object-fit: contain; 
             background-color: #111;
         }
 
-        /* 右側介紹文字區 */
         .modal-right-info {
             flex: 1;
             flex-basis: 50%;
@@ -249,7 +227,6 @@
             position: relative;
         }
 
-        /* 進場動畫修正：補上 opacity: 1 確保文字順利顯示 */
         .modal-overlay.active .modal-content-animate {
             animation: fadeInUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
@@ -272,7 +249,7 @@
         .modal-name { 
             font-size: 2.5rem; 
             margin: 0; 
-            color: var(--primary-red); 
+            color: #e53935; 
             font-weight: bold; 
         }
 
@@ -282,12 +259,11 @@
             line-height: 2; 
             text-align: justify; 
             margin: 0; 
-            white-space: pre-line; /* 支援 \n 換行 */
+            white-space: pre-line; 
             opacity: 0; 
             animation-delay: 0.15s; 
         }
 
-        /* 右上角膠囊關閉按鈕 */
         .close-btn {
             position: absolute;
             top: 40px;
@@ -308,21 +284,41 @@
         }
         
         .close-btn:hover { 
-            background: var(--primary-red); 
+            background: #e53935; 
             color: #fff;
             transform: scale(1.05);
         }
 
         /* ======================================================== */
-        /* 📱 RWD 響應式：手機板轉為上下分層與流暢滾動優化 */
+        /* 📱 手機版 RWD 響應式網頁調適（完美對齊範例母本邏輯） */
         /* ======================================================== */
-        @media (max-width: 900px) {
-            body {
-                padding-top: 110px;
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
             }
+            nav {
+                margin-top: 12px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            nav a {
+                margin-left: 0;
+                font-size: 14px;
+            }
+
+            /* 手機版導覽列變高，將主容器頂部推開距離調整為對齊範例的 240px */
+            body {
+                padding-top: 240px;
+            }
+        }
+
+        @media (max-width: 900px) {
             .modal-overlay {
                 flex-direction: column;
-                overflow-y: auto; /* 讓整個彈窗在手機上能流暢下滑 */
+                overflow-y: auto; 
             }
             .modal-left-photo {
                 flex: none;
@@ -330,28 +326,29 @@
                 width: 100%;
             }
             .modal-right-info {
-                flex: 1; /* 改為彈性延伸，避免長文本截斷 */
+                flex: 1; 
                 height: auto;
-                padding: 3rem 2rem;
+                padding: 4.5rem 2rem 3rem 2rem; 
                 width: 100%;
-                justify-content: flex-start; /* 手機版文字從頂部排列，更符合閱讀習慣 */
+                justify-content: flex-start; 
             }
             .modal-name { font-size: 2rem; }
             .close-btn {
-                position: fixed; /* 固定在右上方，方便隨時關閉 */
+                position: fixed; 
                 top: 20px;
                 right: 20px;
                 padding: 0.6rem 1.2rem;
                 font-size: 0.9rem;
-                background: rgba(255, 255, 255, 0.9);
+                background: rgba(255, 255, 255, 0.95);
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             }
         }
 
+        /* 頁尾樣式對齊範例 */
         footer {
             text-align: center;
             padding: 25px;
-            background-color: var(--primary-red);
+            background-color: #0288d1;
             color: white;
             font-weight: bold;
         }
@@ -361,7 +358,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo"><img src="imageshw/logo.jpg" width="100" height="100" alt="Logo"></a>
+            <a href="index.html" class="logo"><img src="imageshw/logo.jpg" width="100" height="100" alt="二重埔慈元宮 Logo"></a>
             <nav>
                 <a href="index.html">首頁</a>
                 <a href="act.html">活動</a>
@@ -371,13 +368,12 @@
                 <a href="tmf.html">媽祖會</a>
                 <a href="game.html">小遊戲</a>
                 <a href="https://www.facebook.com/DoublePoChiYuanPalace?locale=zh_TW" target="_blank">FB官網</a>
-            </nav> 
+            </nav>
         </div>
     </header>
 
     <main class="main-container">
-        <div class="people-grid">
-            </div>
+        <div class="people-grid"></div>
     </main>
 
     <div class="modal-overlay" id="customModal">
@@ -395,7 +391,7 @@
     </div>
 
     <footer>
-        &copy; 2026 二重埔慈元宮. 版權所有 All Rights Reserved.
+        <p>&copy; 2026 二重埔慈元宮. 版權所有 All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -410,17 +406,17 @@
             { name: "中壇元帥(南天太子)", tag: "核心神尊", img: "imageshw/NT.jpg", desc: "從南天門直降\n聖誕日：農曆九月初九日\n南天太子神威勇猛，統領宮中兵將，鎮守壇界，專責驅邪破煞、護衛地方安寧。" },
             { name: "中壇元帥(九龍太子)", tag: "列位尊神", img: "imageshw/JL.jpg", desc: "分靈自：麻豆太子宮\n聖誕日：農曆九月初九日\n九龍太子道法高深、神通廣大，庇佑孩童平安長大，並為信眾招財納福、開運解泰。" },
             { name: "福德正神", tag: "守護土地", img: "imageshw/TDG.jpg", desc: "分靈自：烘爐地南山福德宮\n聖誕日：農曆二月初二日\n土地公伯伯和藹慈祥，守護在地財富與土地，主管保平安、招財進寶、商賈興隆。" },
-            { name: "虎爺將軍(下山虎)", tag: "本宮護法", img: "imageshw/HY.i.jpg", desc: "分靈自：汐止五虎\n聖誕日：農曆六月初六日\n下山虎將軍威猛異常，專司鎮宅除煞、咬錢招財，同時也是庇佑小孩子健康成長的守護神。" },
-            { name: "千里眼", tag: "媽祖護法", img: "imageshw/QLY.i.jpg", desc: "聖誕日：農曆三月廿三日\n媽祖座前右護法，目光如炬，洞察千里，協助聖母查探人間疾苦，指引信眾方向。" },
-            { name: "順風耳", tag: "媽祖護法", img: "imageshw/ShFer.jpg", desc: "聖誕日：農曆三月廿三日\n媽祖座前左護法，聰聽萬里，聞聲救苦，專心聆聽四海信徒的祈求與心聲。" },
+            { name: "虎爺將軍(下山虎)", tag: "本宮護法", img: "imageshw/HY.i.jpg", desc: "分靈自：汐止五指山\n聖誕日：農曆六月初六日\n下山虎將軍威猛異常，專司鎮宅除煞、咬錢招財，同時也是庇佑小孩子健康成長的守護神。" },
+            { name: "千里眼", tag: "媽祖護法", img: "imageshw/QLY.i.jpg", desc: "媽祖座前右護法，目光如炬，洞察千里，協助聖母查探人間疾苦，指引信眾方向。" },
+            { name: "順風耳", tag: "媽祖護法", img: "imageshw/ShFer.jpg", desc: "媽祖座前左護法，聰聽萬里，聞聲救苦，專心聆聽四海信徒的祈求與心聲。" },
             { name: "中壇元帥(小太子)", tag: "本宮護法", img: "imageshw/X.jpg", desc: "分靈自：麻豆太子宮\n聖誕日：農曆三月廿三日\n小太子活潑機靈，深受信眾喜愛，專司護衛聖母出巡，並庇佑家中小孩平安、好搖飼。" },
-            { name: "李先祖", tag: "列位尊神", img: "imageshw/LTG.jpg", desc: "分靈自：永和李仙祖\n聖誕日：農曆四月初八日\n仙祖恩澤廣被，大開方便之門，指引迷途信子，庇佑功名成就、学业進步、事業順利。" },
+            { name: "李先祖", tag: "列位尊神", img: "imageshw/LTG.jpg", desc: "分靈自：永和李仙祖\n聖誕日：農曆四月初八日\n仙祖恩澤广被，大開方便之門，指引迷途信子，庇佑功名成就、学业進步、事業順利。" },
             { name: "玄天上帝", tag: "列位尊神", img: "imageshw/XT.jpg", desc: "分靈自：梅山玉虛宮\n聖誕日：農曆三月初三日\n帝爺公披髮赤足、腳踏龜蛇，威震北方，主掌消災解厄、斬妖除魔，保護收成。" },
             { name: "中壇元帥(蓮花太子)", tag: "列位尊神", img: "imageshw/LH.jpg", desc: "分靈自：麻豆太子宮\n聖誕日：農曆九月初九日\n蓮花太子清淨無染，展現無邊法力，化解信徒冤親債主、修行障礙，帶來祥和之氣。" },
             { name: "關聖帝君", tag: "文武財神", img: "imageshw/DDJ.jpg", desc: "分靈自：四湖參天宮\n聖誕日：農曆六月廿四日\n帝君正氣凜然，主管忠義誠信。做為武財神，護佑各行各業經商順利、財源廣進、小人遠離。" },
             { name: "關聖帝君", tag: "文武財神", img: "imageshw/XDJ.jpg", desc: "分靈自：新莊武聖廟\n聖誕日：農曆六月廿四日\n關聖帝君神威顯赫，正氣存心，專司驅除邪魔、護佑商旅、賞善罰惡，保佑事業蒸蒸日上。" },
             { name: "天上聖母(三媽)", tag: "核心團員", img: "imageshw/SM1.jpg", desc: "分靈自：笨港口港口宮\n聖誕日：農曆三月廿三日\n三媽神威顯赫，專司驅邪避凶、斬妖除魔，為無助信徒排解卡陰、破除煞氣及處理各種生活中的疑難雜症。" },
-            { name: "黑虎將軍", tag: "本宮護法", img: "imageshw/HH.jpg", desc: "分靈自：花蓮港天宮\n聖誕日：農曆三月廿三日\n黑虎將軍威風凜凜，鎮守廟堂之下，主管招財辟邪、保佑家畜與寵物平安，並能祛除小人。" },
+            { name: "黑虎將軍", tag: "本宮護法", img: "imageshw/HH.jpg", desc: "分靈自：從北天門直降\n聖誕日：農曆六月初六日\n黑虎將軍威風凜凜，鎮守廟堂之下，主管招財辟邪、保佑家畜與寵物平安，並能祛除小人。" },
             { name: "五營將軍", tag: "守護壇界", img: "imageshw/W.uY.i.jpg", desc: "統帥東西南北中五路神兵神將，鎮守宮廟外圍，杜絕邪魔外道侵擾，維護地方境內一片祥和。" }
         ];
 
@@ -448,7 +444,7 @@
             grid.appendChild(card);
         });
 
-        // 全螢幕視窗控制
+        // 彈出視窗控制
         const modal = document.getElementById('customModal');
         const modalImg = document.getElementById('modalImg');
         const modalName = document.getElementById('modalName');
@@ -476,7 +472,6 @@
 
         closeModalBtn.onclick = closeModal;
 
-        // 點擊背景空白處直接關閉
         modal.onclick = function(e) {
             if (e.target === modal) {
                 closeModal();

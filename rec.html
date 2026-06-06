@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>二重埔慈元宮 - 宮廟歷史紀錄</title>
+    <title>二重埔慈元宮</title>
     <style>
-        /* =========================================
-           1. 原有的基礎樣式（保持不變）
-           ========================================= */
+        /* ==================== 全域樣式與平滑滾動（完全複製範例） ==================== */
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", 'Arial', 'Microsoft JhengHei', sans-serif;
+            font-family: 'Arial', 'Microsoft JhengHei', sans-serif;
             background-color: #fffde7; /* 溫暖的淺黃色背景 */
-            color: #333333;
+            color: #333;
             margin: 0;
             padding: 0;
+            /* 頂部推開 180px，第一個區塊完美不被擋 */
+            padding-top: 180px; 
         }
 
-        /* 固定在頂部的導覽列 */
+        /* ==================== 固定在頂部的導覽列（完全複製範例，一模一樣） ==================== */
         header {
-            background-color: #ffeb3b; /* 亮黃色 */
-            padding: 15px 20px;       
+            background-color: #ffeb3b; /* 小新亮黃色 */
+            padding: 15px 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: fixed;
             top: 0;
@@ -37,47 +37,34 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            flex-wrap: wrap; /* 支援手機端自動換行 */
         }
 
         .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e53935; /* 經典紅色 */
+            text-decoration: none;
             display: flex;
             align-items: center;
-            text-decoration: none;
-        }
-        
-        .logo img {
-            display: block;
-            width: 100px;
-            height: 100px;
-        }
-
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
         }
 
         nav a {
             color: #0288d1; /* 動感超人藍 */
             text-decoration: none;
             margin-left: 20px;
-            margin-top: 5px;
-            margin-bottom: 5px;
             font-weight: bold;
             transition: color 0.3s;
-            white-space: nowrap; /* 防止中文字斷行 */
         }
 
         nav a:hover {
-            color: #e53935; /* 經典紅色 */
+            color: #e53935;
         }
 
-        /* 主要內容置中區塊 */
+        /* ==================== 主要內容置中區塊 ==================== */
         .container {
             max-width: 650px;
             margin: 0 auto;
-            padding: 180px 15px 40px 15px; /* 配合 Logo 頂部間距 */
+            padding: 0 15px 40px 15px; 
             box-sizing: border-box;
         }
 
@@ -121,7 +108,7 @@
             color: #444444;
         }
 
-        /* 頁尾 */
+        /* 頁尾（完全複製範例） */
         footer {
             text-align: center;
             padding: 25px;
@@ -131,9 +118,7 @@
             margin-top: 40px;
         }
 
-        /* =========================================
-           2. FB 風格四格照片格線
-           ========================================= */
+        /* ==================== FB 風格四格照片格線 ==================== */
         .record-image-container {
             width: 100%;
             border-radius: 6px;
@@ -192,12 +177,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer; /* 讓遮罩也顯示手指，提示可點擊 */
+            cursor: pointer; 
         }
 
-        /* =========================================
-           3. 升級版 Lightbox 彈出視窗與控制鈕 CSS
-           ========================================= */
+        /* ==================== Lightbox 彈出視窗與控制鈕 CSS ==================== */
         .lightbox-overlay {
             display: none; 
             position: fixed;
@@ -226,7 +209,7 @@
             max-height: 85vh; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             border-radius: 4px;
-            user-select: none; /* 防止連續點擊時選取到圖片藍底 */
+            user-select: none; 
         }
 
         /* 頂部右上角關閉按鈕 */
@@ -270,20 +253,34 @@
             color: #111111;
         }
 
-        .btn-prev { left: -70px; } /* 置於大圖左側側邊 */
-        .btn-next { right: -70px; } /* 置於大圖右側側邊 */
+        .btn-prev { left: -70px; } 
+        .btn-next { right: -70px; } 
 
-        /* 手機板響應式微調 */
+        /* ==================== 📱 手機版 RWD 響應式網頁調適（完全複製範例） ==================== */
         @media (max-width: 768px) {
-            .nav-container { justify-content: center; flex-direction: column; }
-            nav { justify-content: center; margin-top: 10px; }
-            nav a { margin: 5px 10px; }
-            .container { padding-top: 240px; }
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                margin-top: 12px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            nav a {
+                margin-left: 0;
+                font-size: 14px;
+            }
+
+            body {
+                padding-top: 240px;
+            }
             .img-box { height: 120px; } 
             .record-image-container.count-1 .img-box { height: 200px; }
             
             .lightbox-close { top: 15px; right: 20px; font-size: 35px; }
-            /* 手機版將箭頭往內縮，移入畫面邊緣內 */
             .btn-prev { left: 5px; background-color: rgba(0,0,0,0.6); }
             .btn-next { right: 5px; background-color: rgba(0,0,0,0.6); }
             .lightbox-nav-btn { width: 40px; height: 40px; font-size: 24px; }
@@ -294,9 +291,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="imageshw/logo.jpg" alt="慈元宮Logo">
-            </a>
+            <a href="index.html" class="logo"><img src="imageshw/logo.jpg" width="100" height="100" alt="二重埔慈元宮 Logo"></a>
             <nav>
                 <a href="index.html">首頁</a>
                 <a href="act.html">活動</a>
@@ -312,7 +307,6 @@
 
     <div class="container">
 
-        <!-- 新北拱心宮 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">新北拱心宮 (拱天宮 白沙屯媽祖分靈)</h2>
@@ -333,7 +327,6 @@
             </div>
         </div>
 
-        <!-- 白沙屯媽祖台中清水分靈 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">白沙屯媽祖台中清水分靈</h2>
@@ -347,7 +340,7 @@
                 東獄大帝  吳府千歲
                 行善媽祖  降龍大師父
                 李府千歲  玄天上帝
-                城隍爺      開台聖國聖爺
+                城隍爺       開台聖國聖爺
 
                 歡迎蒞臨 二重埔慈元宮
             </div>
@@ -379,7 +372,6 @@
             </div>
         </div>
 
-        <!-- 國王 KING Vlogs -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">國王 KING Vlogs</h2>
@@ -397,7 +389,6 @@
             </div>
         </div>
 
-        <!-- 宮主交接任 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">宮主交接任</h2>
@@ -428,7 +419,6 @@
             </div>
         </div>
 
-        <!-- 添購裝備 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">添購裝備</h2>
@@ -444,7 +434,6 @@
             </div>
         </div>
 
-        <!-- 二重埔慈元宮 安座大典 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">二重埔慈元宮 安座大典</h2>
@@ -469,7 +458,6 @@
             </div>
         </div>
 
-        <!-- 三重玄皇宮 -->
         <div class="record-card">
             <div class="record-header">
                 <h2 class="record-title">三重玄皇宮</h2>
@@ -516,15 +504,12 @@
             </div>
         </div>
 
-
-
     </div>
 
     <footer>
-        © 二重埔慈元宮 版權所有
+        &copy; 二重埔慈元宮 版權所有
     </footer>
 
-    <!-- Lightbox 燈箱結構 -->
     <div id="lightboxOverlay" class="lightbox-overlay">
         <span class="lightbox-close" id="lightboxCloseBtn">&times;</span>
         <div class="lightbox-content-wrapper">

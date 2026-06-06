@@ -17,7 +17,7 @@
             padding: 0;
         }
 
-        /* 固定在頂部的導覽列 (維持原本大氣的大小) */
+        /* 固定在頂部的導覽列 */
         header {
             background-color: #ffeb3b; /* 小新亮黃色 */
             padding: 15px 20px;
@@ -73,6 +73,8 @@
             padding: 30px;
             margin-bottom: 60px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            /* 修正點擊導覽列跳轉時，標題被固定導覽列擋住的問題 */
+            scroll-margin-top: 170px;
         }
 
         h1 {
@@ -95,7 +97,7 @@
             border-radius: 0 5px 5px 0;
         }
 
-        /* 通用卡片式排版 (歷代宮主等區塊仍維持原設定) */
+        /* 通用卡片式排版 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -103,7 +105,7 @@
             margin-top: 20px;
         }
 
-        /* 🛠️ 專為核心人物設計的 4 X 2 排版 */
+        /* 核心人物設計的 4 X 2 排版 */
         .grid-container-characters {
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 完美平分四個欄位 */
@@ -177,10 +179,43 @@
             display: block;
         }
 
-        /* 手機版 RWD 調適：避免 4 欄在手機上太擠，手機版自動切回垂直排列 */
+        /* 📱 手機版 RWD 響應式網頁調適 */
         @media (max-width: 768px) {
+            /* 導覽列在手機版改為垂直置中換行，避免擠壓變形 */
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                margin-top: 12px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            nav a {
+                margin-left: 0;
+                font-size: 14px;
+            }
+
+            /* 手機版導覽列變高，因此將主容器頂部間距加大，防第一區塊被遮擋 */
+            .container {
+                padding-top: 240px;
+            }
+
+            /* 核心人物卡片在手機上自動轉為垂直排列 */
             .grid-container-characters {
                 grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+
+            /* 手機版微調滾動錨點高度 */
+            section {
+                scroll-margin-top: 230px;
+            }
+
+            /* 手機版適度縮減 Google 表單高度，避免頁面過長 */
+            .form-iframe-container iframe {
+                height: 800px;
             }
         }
 
@@ -199,10 +234,9 @@
 </head>
 <body>
 
-    <!-- 頂部固定導覽列 -->
     <header>
         <div class="nav-container">
-<a href="index.html" class="logo"><img src="imageshw/logo.jpg" width="100" height="100" alt="Logo"></a>
+            <a href="index.html" class="logo"><img src="imageshw/logo.jpg" width="100" height="100" alt="二重埔慈元宮 Logo"></a>
             <nav>
                 <a href="index.html">首頁</a>
                 <a href="act.html">活動</a>
@@ -221,7 +255,7 @@
         <section id="home">
             <h1>歡迎來到二重埔慈元宮！</h1>
             <p>主神 : 天上聖母 媽祖娘娘</p>
-            <p>供奉 : 大媽.二媽.三媽與千里眼.順風耳.觀世音菩薩.金母娘娘.濟公活佛.福德正神(土地公).鐵拐李(李道祖).玄天上帝.關盛帝君.九龍太子.蓮花太子.南天太子.三太子.虎爺</p>
+            <p>供奉 : 大媽.二媽.三媽與千里眼.順風耳.觀世音菩薩.瑤池金母.濟公活佛.福德正神(土地公).鐵拐李(李道祖).玄天上帝.關聖帝君.九龍太子.蓮花太子.南天太子.小太子.虎爺.黑虎</p>
              
             <blockquote>
                 <strong>弘揚媽祖文化 能力所及助弱勢</strong>
@@ -236,7 +270,6 @@
             </ul>
         </section>
 
-        <!-- 🛠️ 核心人物區塊：已套用全新的 grid-container-characters 達到 4 X 2 效果 -->
         <section id="characters">
             <h1>二重埔慈元宮核心人物</h1>
             <p>主要工作人員</p>
@@ -303,20 +336,20 @@
             <p>添購文轎、涼傘、龍虎旗、太子轎、鼓車</p>
         </section>
 
-        <section id="movies">
+        <section id="history">
             <h1>歷代宮主介紹與重要紀事</h1>
             <p>感恩前人付出，傳承慈元宮香火與大愛：</p>
 
             <div class="grid-container">
                 <div class="card card-blue">
-                    <h3>第一任宮主介紹</h3>
-                    <p><strong>所有信眾</strong></p>
-                    <p>作為創宮初期的核心骨幹，悉心奉獻，帶領眾信徒奠定慈元宮的宏偉基業，對弘揚媽祖信仰功不可沒。</p>
+                    <h3>創宮開基</h3>
+                    <p><strong>全體信眾</strong></p>
+                    <p>眾志成城，集結地方信眾之虔誠心意，群策群力共同籌建，奠定慈元宮之堅實基業。</p>
                 </div>
                 <div class="card card-blue">
-                    <h3>第一任宮主介紹</h3>
+                    <h3>第一任宮主</h3>
                     <p><strong>李火生</strong></p>
-                    <p>作為創宮初期的核心骨幹，悉心奉獻，帶領眾信徒奠定慈元宮的宏偉基業，對弘揚媽祖信仰功不可沒。</p>
+                    <p>作為創宮初期的核心骨幹，悉心奉獻，帶領眾信徒推動宮務，對弘揚媽祖信仰功不可沒。</p>
                 </div>
             </div>
         </section>

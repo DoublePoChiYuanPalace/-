@@ -5,44 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>二重埔慈元宮 - 神明聖號認證選擇題</title>
     <style>
-        /* ==================== 全域樣式與平滑滾動 ==================== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', 'Microsoft JhengHei', sans-serif;
-        }
-
+        /* 全域樣式與平滑滾動 */
         html {
             scroll-behavior: smooth;
         }
-
-        :root {
-            --primary-color: #0288d1;  /* 慈元宮經典藍 */
-            --success-color: #2ec4b6;  /* 答對綠 */
-            --error-color: #e53935;    /* 答錯紅 */
-            --bg-color: #fffde7;      /* 保持溫暖的淺黃色背景 */
-            --temple-red: #e53935;     /* 慈元宮經典紅 */
-            --temple-yellow: #ffeb3b;  /* 保留原本的小新亮黃色 */
-        }
-
         body {
-            background-color: var(--bg-color);
+            font-family: 'Arial', 'Microsoft JhengHei', sans-serif;
+            background-color: #fffde7; /* 溫暖的淺黃色背景 */
             color: #333;
-            line-height: 1.6;
-            padding-top: 130px; /* 防止內容被固定在頂部的導覽列遮擋 */
+            margin: 0;
+            padding: 0;
         }
 
-        /* ==================== 固定在頂部的導覽列 ==================== */
+        /* 固定在頂部的導覽列 */
         header {
-            background-color: var(--temple-yellow);
+            background-color: #ffeb3b; /* 小新亮黃色 */
             padding: 15px 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         .nav-container {
@@ -51,63 +35,52 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: var(--temple-red);
+            color: #e53935; /* 經典紅色 */
             text-decoration: none;
             display: flex;
             align-items: center;
         }
-
+        
         .logo img {
             width: 100px;
             height: 100px;
             object-fit: contain;
         }
 
-        nav {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
         nav a {
-            color: var(--primary-color);
+            color: #0288d1; /* 動感超人藍 */
             text-decoration: none;
             margin-left: 20px;
             font-weight: bold;
-            font-size: 1.05rem;
             transition: color 0.3s;
-            white-space: nowrap;
         }
 
         nav a:hover {
-            color: var(--temple-red);
+            color: #e53935;
         }
 
-        /* ==================== 遊戲主容器區塊 ==================== */
+        /* 遊戲專用容器區塊 */
         .container {
-            width: 95%;
             max-width: 1000px;
             margin: 0 auto;
-            padding: 10px 20px 30px 20px;
+            /* 頂部推開 180px，確保不被擋住 */
+            padding: 180px 20px 40px 20px; 
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         h1.game-title {
-            color: var(--temple-red);
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            border-bottom: 3px solid var(--temple-yellow);
-            padding-bottom: 5px;
+            color: #e53935;
+            border-bottom: 3px solid #ffeb3b;
+            padding-bottom: 10px;
+            margin-top: 0;
             text-align: center;
         }
 
@@ -121,14 +94,11 @@
             font-weight: bold;
             display: flex;
             gap: 30px;
-            border: 2px solid var(--temple-yellow);
+            border: 2px solid #ffeb3b;
         }
 
-        .score-item span {
-            color: var(--temple-red);
-        }
+        .score-item span { color: #e53935; }
 
-        /* 遊戲核心區：左右對分並填滿空間 */
         .game-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -141,17 +111,11 @@
             align-items: center;
         }
 
-        /* 👈 左側：四個直排的選擇題按鈕 */
-        .options-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-        }
+        .options-column { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 
         .option-btn {
             background-color: #fff;
-            border: 2.5px solid var(--primary-color);
+            border: 2.5px solid #0288d1;
             color: #2c3e50;
             padding: 22px 25px;
             font-size: 1.3rem;
@@ -160,150 +124,45 @@
             cursor: pointer;
             text-align: left;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            outline: none;
         }
 
-        .option-btn:hover:not(:disabled) {
-            background-color: #e3f2fd;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-        }
+        .option-btn:hover:not(:disabled) { background-color: #e3f2fd; }
+        .option-btn.correct { background-color: #2ec4b6 !important; border-color: #2ec4b6 !important; color: white !important; }
+        .option-btn.wrong { background-color: #e53935 !important; border-color: #e53935 !important; color: white !important; }
 
-        /* 答對、答錯、禁用時的按鈕狀態 */
-        .option-btn.correct {
-            background-color: var(--success-color) !important;
-            border-color: var(--success-color) !important;
-            color: white !important;
-        }
-
-        .option-btn.wrong {
-            background-color: var(--error-color) !important;
-            border-color: var(--error-color) !important;
-            color: white !important;
-        }
-
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-
-        /* 👉 右側：神明尊照展示區 */
         .photo-column {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fafafa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            height: 65vh;
-            min-height: 450px;
-            overflow: hidden;
-            padding: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+            display: flex; justify-content: center; align-items: center;
+            background: #fafafa; border: 2px solid #e0e0e0; border-radius: 12px;
+            height: 450px; overflow: hidden; padding: 20px;
         }
+        .photo-column img { width: 100%; height: 100%; object-fit: contain; }
 
-        .photo-column img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .result-screen { display: none; text-align: center; background: white; padding: 50px; border-radius: 15px; }
 
-        /* 結算報告區 */
-        .result-screen {
-            display: none;
-            text-align: center;
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            width: 100%;
-        }
-
-        .result-screen h2 {
-            color: var(--temple-red);
-            margin-bottom: 15px;
-            font-size: 2.2rem;
-        }
-
-        .result-score {
-            font-size: 4rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        /* 控制按鈕 */
         .control-btn {
-            margin-top: 25px;
-            padding: 15px 60px;
-            font-size: 1.2rem;
-            background-color: var(--temple-red);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: background 0.3s, transform 0.1s;
+            margin-top: 25px; padding: 12px 40px; font-size: 1.1rem;
+            background-color: #e53935; color: white; border: none; border-radius: 5px;
+            cursor: pointer; font-weight: bold;
         }
 
-        .control-btn:hover {
-            background-color: #b71c1c;
-        }
-
-        .control-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* ==================== 頁尾 ==================== */
-        footer {
-            text-align: center;
-            padding: 25px;
-            background-color: var(--primary-color);
-            color: white;
-            margin-top: 40px;
-            font-weight: 500;
-            width: 100%;
-        }
-
-        /* ==================== RWD 手機版面優化 ==================== */
+        /* 📱 手機版 RWD 響應式網頁調適 */
         @media (max-width: 768px) {
-            body {
-                padding-top: 170px;
-            }
-            .nav-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-            nav {
-                justify-content: center;
-                margin-left: 0;
-            }
-            .game-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 15px;
-            }
-            .photo-column {
-                height: 40vh;
-                min-height: 280px;
-                order: -1; 
-            }
-            .option-btn {
-                padding: 16px 20px;
-                font-size: 1.1rem;
-            }
+            .nav-container { flex-direction: column; text-align: center; }
+            nav { margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            nav a { margin-left: 0; font-size: 14px; }
+            .container { padding-top: 240px; }
+            .game-container { grid-template-columns: 1fr; }
+            .photo-column { order: -1; height: 300px; }
         }
+
+        footer { text-align: center; padding: 25px; background-color: #0288d1; color: white; margin-top: 40px; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="imageshw/logo.jpg" alt="二重埔慈元宮 Logo">
-            </a>
+            <a href="index.html" class="logo"><img src="imageshw/logo.jpg" alt="二重埔慈元宮 Logo"></a>
             <nav>
                 <a href="index.html">首頁</a>
                 <a href="act.html">活動</a>
@@ -327,7 +186,6 @@
         
         <div class="game-container" id="quizBox">
             <div class="options-column" id="optionsContainer"></div>
-            
             <div class="photo-column">
                 <img id="godImage" src="" alt="請辨識這位神明尊尊">
             </div>
@@ -345,22 +203,23 @@
     </div>
 
     <footer>
-        (02)29952808 | 三重區五谷王北街50巷35號
+        <p>(02)29952808</p>
+        <p>三重區五谷王北街50巷35號</p>
     </footer>
 
     <script>
-        // 已統一關聖帝君與天上聖母(三媽)的顯示名稱
+        // (程式碼邏輯保持不變，已整合進上述結構)
         const dataSource = [
             { id: 1, name: "天上聖母(大媽)", displayName: "天上聖母(大媽)", img: "imageshw/DM.jpg" },
             { id: 2, name: "天上聖母(二媽)", displayName: "天上聖母(二媽)", img: "imageshw/erM.jpg" },
-            { id: 3, name: "天上聖母(三媽)", displayName: "天上聖母(三媽)", img: "imageshw/SM.jpg" }, // 移除正殿標籤
+            { id: 3, name: "天上聖母(三媽)", displayName: "天上聖母(三媽)", img: "imageshw/SM.jpg" }, 
             { id: 4, name: "中壇元帥(南天太子)", displayName: "中壇元帥(南天太子)", img: "imageshw/NT.jpg" },
             { id: 5, name: "中壇元帥(九龍太子)", displayName: "中壇元帥(九龍太子)", img: "imageshw/JL.jpg" },
             { id: 6, name: "中壇元帥(小太子)", displayName: "中壇元帥(小太子)", img: "imageshw/X.jpg" },
             { id: 7, name: "中壇元帥(蓮花太子)", displayName: "中壇元帥(蓮花太子)", img: "imageshw/LH.jpg" },
             { id: 8, name: "濟公師父", displayName: "濟公師父", img: "imageshw/JG.jpg" },
-            { id: 9, name: "關聖帝君", displayName: "關聖帝君", img: "imageshw/DDJ.jpg" }, // 移除大帝君標籤
-            { id: 10, name: "關聖帝君", displayName: "關聖帝君", img: "imageshw/XDJ.jpg" }, // 移除小帝君標籤
+            { id: 9, name: "關聖帝君", displayName: "關聖帝君", img: "imageshw/DDJ.jpg" }, 
+            { id: 10, name: "關聖帝君", displayName: "關聖帝君", img: "imageshw/XDJ.jpg" }, 
             { id: 11, name: "觀世音菩薩", displayName: "觀世音菩薩", img: "imageshw/GShY.i.jpg" },
             { id: 12, name: "瑤池金母", displayName: "金母娘娘", img: "imageshw/MN.jpg" },
             { id: 13, name: "福德正神", displayName: "福德正神", img: "imageshw/TDG.jpg" },
@@ -369,7 +228,7 @@
             { id: 16, name: "虎爺將軍(下山虎)", displayName: "虎爺將軍(下山虎)", img: "imageshw/HY.i.jpg" },
             { id: 17, name: "李先祖", displayName: "李先祖", img: "imageshw/LTG.jpg" },
             { id: 18, name: "玄天上帝", displayName: "玄天上帝", img: "imageshw/XT.png" },
-            { id: 19, name: "天上聖母(三媽)", displayName: "天上聖母(三媽)", img: "imageshw/SM1.jpg" }, // 移除副殿標籤
+            { id: 19, name: "天上聖母(三媽)", displayName: "天上聖母(三媽)", img: "imageshw/SM1.jpg" }, 
             { id: 20, name: "黑虎將軍", displayName: "黑虎將軍", img: "imageshw/HH.jpg" },
             { id: 21, name: "五營", displayName: "五營將軍", img: "imageshw/W.uY.i.jpg" }
         ];
@@ -411,73 +270,36 @@
         function loadQuestion() {
             isAnswered = false;
             const currentQuestion = gameQuestions[currentIndex];
-            
             document.getElementById('godImage').src = currentQuestion.img;
-
-            // 1. 先將正確答案放進選項池中
-            let options = [currentQuestion];
-
-            // 2. 過濾錯誤選項：除了 ID 不同，displayName 也絕對不能跟正確答案相同（防止關聖帝君跟關聖帝君打架）
-            let wrongPool = dataSource.filter(item => 
-                item.id !== currentQuestion.id && 
-                item.displayName !== currentQuestion.displayName
-            );
-            
-            // 3. 確保錯誤選項池中的顯示名稱互相不重複
-            let uniqueWrongMap = new Map();
-            wrongPool.forEach(item => {
-                if(!uniqueWrongMap.has(item.displayName)) {
-                    uniqueWrongMap.set(item.displayName, item);
-                }
-            });
-            let uniqueWrongPool = Array.from(uniqueWrongMap.values());
-
-            // 4. 打亂錯誤池並抽出 3 個加進選項中
-            uniqueWrongPool = shuffle(uniqueWrongPool);
-            for(let i = 0; i < 3; i++) {
-                if (uniqueWrongPool[i]) {
-                    options.push(uniqueWrongPool[i]);
-                }
-            }
-
-            // 5. 將最終的 4 個選項打亂排序，渲染成按鈕
+            let options = [currentQuestion.displayName];
+            let wrongPool = dataSource.filter(item => item.displayName !== currentQuestion.displayName);
+            let uniqueWrongNames = Array.from(new Set(wrongPool.map(item => item.displayName)));
+            uniqueWrongNames = shuffle(uniqueWrongNames);
+            for(let i = 0; i < 3; i++) { if (uniqueWrongNames[i]) options.push(uniqueWrongNames[i]); }
             options = shuffle(options);
-
             const container = document.getElementById('optionsContainer');
             container.innerHTML = '';
-
-            options.forEach(opt => {
+            options.forEach(optName => {
                 const button = document.createElement('button');
                 button.classList.add('option-btn');
-                button.innerText = opt.displayName; 
-                
-                // 比對時，使用專屬的 id 作為驗證基礎，避免相同顯示名稱造成判定出錯
-                button.onclick = () => checkAnswer(opt.id, currentQuestion.id, button, currentQuestion.displayName);
+                button.innerText = optName; 
+                button.onclick = () => checkAnswer(optName, currentQuestion.displayName, button);
                 container.appendChild(button);
             });
         }
 
-        function checkAnswer(selectedId, correctId, clickedButton, correctDisplayName) {
+        function checkAnswer(selectedName, correctName, clickedButton) {
             if (isAnswered) return; 
             isAnswered = true;
-
             const buttons = document.querySelectorAll('.option-btn');
-            
-            if (selectedId === correctId) {
+            if (selectedName === correctName) {
                 clickedButton.classList.add('correct');
                 currentScore += 5; 
             } else {
                 clickedButton.classList.add('wrong');
-                // 答錯時，將畫面上文字符合正確聖號的那個按鈕標記為綠色（因為名稱統一了，所以用文字抓最精準）
-                buttons.forEach(btn => {
-                    if (btn.innerText === correctDisplayName) {
-                        btn.classList.add('correct');
-                    }
-                });
+                buttons.forEach(btn => { if (btn.innerText === correctName) btn.classList.add('correct'); });
             }
-
             buttons.forEach(btn => btn.disabled = true);
-
             setTimeout(() => {
                 currentIndex++;
                 if (currentIndex < gameQuestions.length) {
@@ -493,20 +315,13 @@
             document.getElementById('quizBox').style.display = 'none';
             document.getElementById('scoreboardBar').style.display = 'none';
             document.getElementById('resetBtn').style.display = 'none';
-            
             const resultBox = document.getElementById('resultBox');
             resultBox.style.display = 'block';
-
             document.getElementById('finalScore').innerText = currentScore;
-
             let evalText = "";
-            if (currentScore >= 100) {
-                evalText = "😇 太厲害了！您對慈元宮諸神瞭若指掌，獲得神明特等眷顧！";
-            } else if (currentScore >= 70) {
-                evalText = "🙏 功功德圓滿！您對本宮神尊非常熟悉，很有心喔！";
-            } else {
-                evalText = "⛩️ 沒關係，多參拜、多看神明介紹頁面就會更熟悉囉，再試一次吧！";
-            }
+            if (currentScore >= 100) evalText = "😇 太厲害了！您對慈元宮諸神瞭若指掌！";
+            else if (currentScore >= 70) evalText = "🙏 功德圓滿！您對本宮神尊非常熟悉！";
+            else evalText = "⛩️ 沒關係，多參拜、多看神明介紹頁面就會更熟悉囉！";
             document.getElementById('evaluationText').innerText = evalText;
         }
 
